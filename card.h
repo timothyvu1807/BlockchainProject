@@ -6,14 +6,15 @@
 #include <time.h>
 using namespace std;
 
-void run();
+// void run();
 
 class Card{
       private:
               char suit;
-              int value;
       public:
+             int value;
              Card();
+             void run();
              void setCard();
              void getCard();      
              int getValue();
@@ -34,7 +35,8 @@ class Deck{
 Card::Card(){
      srand(time(NULL));
      value = rand() % 13;
-     suit = rand() % 4 + 1;            
+     suit = rand() % 4 + 1;
+     temp = value;            
 }
 
 void Card::setCard(){
@@ -43,6 +45,7 @@ void Card::setCard(){
 }
 
 void Card::getCard(){
+    int temp = value;
      cout << " ----" << endl << "|    |" << endl << "| ";
 
      if (value == 0) cout << 'A' << "  |" << endl << "|    |" << endl << " ----" << endl;
@@ -67,7 +70,7 @@ int Card::getSuit(){
 }
 
 int Card::getValue(){
-    return value;
+    return value+1;
 }
 
 bool Deck::cardInDeck(Card card, int index){
@@ -115,11 +118,11 @@ void Deck::draw(){
      numDrawn++;
 }
 
-void run(){
+void Card::run(){
      Deck cards;
      char choice;
      int cardsDrawn = 0;
-     cout<<"Enter 's' to shuffle the deck, 'd' to draw a card, or 'x' to exit:  ";
+     cout<<"Enter 's' to shuffle the deck, 'H' to Hit, or 'x' to exit:  ";
      do{
      cin>>choice;
      switch(choice){
@@ -130,15 +133,31 @@ void run(){
                              cout<<"Deck shuffled."<<endl;
                              cardsDrawn = 0;
                              break;
-                    case 'D':
-                    case 'd':if (cardsDrawn == 52){
+                    case 'H':
+                    case 'h':if (cardsDrawn == 52){
                                  cout<<"Out of cards. Deck reshuffled."<<endl;
                                  cards.shuffle();
                                  cardsDrawn = 0;
                                  break;
                              }
                              else{
+                                 Card test;
+                                 int counter =0;
                                   cards.draw();
+                                //   int Hand[10];
+                                //  if( value  == 10|| value  == 11|| value  == 12)
+                                //  {
+                                //      Hand[counter] = 10;
+                                //  }else{
+                                //      Hand[counter] = value;
+                                //  }
+                                //  int sum =0;
+                                //  counter++;
+                                //  for(int i =0; i<counter; i++)
+                                //  {
+                                //      sum = sum + Hand[counter];
+                                //      cout << sum << endl;
+                                //  }
                                   cardsDrawn++;
                                   break;
                              }
