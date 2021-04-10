@@ -48,10 +48,10 @@ void Card::getCard(){
        cout << value+1;
        cout << " |" << endl << "|    |" << endl << " ----" << endl;
      }
-     else if (value == 10) cout << 'J' << "  |"<<endl<<"|    |" << endl << " ----" <<endl;
-     else if (value == 11) cout <<'Q' << "  |"<<endl<<"|    |" << endl << " ----" <<endl;
-     else if (value == 12) cout <<'K' << "  |"<<endl<<"|    |" << endl << " ----" <<endl;
-     else cout<<value+1 << "  |"<<endl<<"|    |" << endl << " ----" <<endl;
+     else if (value == 10) cout << 'J' << "  |" << endl << "|    |" << endl << " ----" <<endl;
+     else if (value == 11) cout << 'Q' << "  |" << endl << "|    |" << endl << " ----" <<endl;
+     else if (value == 12) cout << 'K' << "  |" << endl << "|    |" << endl << " ----" <<endl;
+     else cout<<value+1 << "  |" << endl << "|    |" << endl << " ----" <<endl;
 
      if (suit == 1) cout<<(char)3;
      else if (suit == 2) cout<<(char)4;
