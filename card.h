@@ -35,8 +35,7 @@ class Deck{
 Card::Card(){
      srand(time(NULL));
      value = rand() % 13;
-     suit = rand() % 4 + 1;
-     temp = value;            
+     suit = rand() % 4 + 1;           
 }
 
 void Card::setCard(){
