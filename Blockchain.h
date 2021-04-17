@@ -11,13 +11,13 @@ using namespace std;
 // Transaction
 struct TransactionData{
     double amount;
-    std::string senderKey;
-    std::string receiverKey;
+    string senderKey;
+    string receiverKey;
     time_t timestamp;
     
     TransactionData(){};
     
-    TransactionData(double amt, std::string sender, std::string receiver, time_t time)
+    TransactionData(double amt, string sender, string receiver, time_t time)
     {
         amount = amt;
         senderKey = sender;
@@ -58,10 +58,10 @@ int Block::getIndex()
 
 size_t Block::generateHash()
 {
-    std::string toHashS = std::to_string(data.amount) + data.receiverKey + data.senderKey + std::to_string(data.timestamp);
-    std::hash<std::string> tDataHash;
-    std::hash<std::string> prevHash;
-    return tDataHash(toHashS) ^ (prevHash(std::to_string(previousHash)) << 1);
+    string toHashS = to_string(data.amount) + data.receiverKey + data.senderKey + to_string(data.timestamp);
+    hash<string> tDataHash;
+    hash<string> prevHash;
+    return tDataHash(toHashS) ^ (prevHash(to_string(previousHash)) << 1);
 }
 
 size_t Block::getHash()
@@ -82,15 +82,16 @@ bool Block::isHashValid()
 // Blockchain
 class Blockchain{
 private:
+    void shop();
     Block createGenesisBlock();
-    std::vector<Block> chain;
+    vector<Block> chain;
 
 public:
     // Constuctor
     Blockchain();
     
     // Public Functions
-    std::vector<Block> getChain();
+    vector<Block> getChain();
     Block *getLatestBlock();
     bool isChainValid();
     void addBlock(TransactionData data);
@@ -104,7 +105,7 @@ Blockchain::Blockchain()
 }
 
 // Public Chain Getter
-std::vector<Block> Blockchain::getChain() {
+vector<Block> Blockchain::getChain() {
     return chain;
 }
 
@@ -112,7 +113,7 @@ std::vector<Block> Blockchain::getChain() {
 Block Blockchain::createGenesisBlock()
 {
     // Get Current Time
-    std::time_t current;
+    time_t current;
     
     // Setup Initial Transaction Data
     TransactionData d(0, "Genesis", "Genesis", time(&current));
@@ -132,14 +133,14 @@ Block *Blockchain::getLatestBlock()
 void Blockchain::addBlock(TransactionData d)
 {
     int index = (int)chain.size();
-    std::size_t previousHash = (int)chain.size() > 0 ? getLatestBlock()->getHash() : 0;
+    size_t previousHash = (int)chain.size() > 0 ? getLatestBlock()->getHash() : 0;
     Block newBlock(index, d, previousHash);
     chain.push_back(newBlock);
 }
 
 bool Blockchain::isChainValid()
 {
-    std::vector<Block>::iterator it;
+    vector<Block>::iterator it;
     
     for (it = chain.begin(); it != chain.end(); ++it)
     {
@@ -164,21 +165,25 @@ bool Blockchain::isChainValid()
 }
 
 void Blockchain::printChain() {
-    std::vector<Block>::iterator it;
+    vector<Block>::iterator it;
     
     for (it = chain.begin(); it != chain.end(); ++it)
     {
         Block currentBlock = *it;
-        printf("\n\nBlock ===================================");
-        printf("\nIndex: %d", currentBlock.getIndex());
-        printf("\nAmount: %f", currentBlock.data.amount);
-        printf("\nSenderKey: %s", currentBlock.data.senderKey.c_str());
-        printf("\nReceiverKey: %s", currentBlock.data.receiverKey.c_str());
-        printf("\nTimestamp: %ld", currentBlock.data.timestamp);
-        printf("\nHash: %zu", currentBlock.getHash());
-        printf("\nPrevious Hash: %zu", currentBlock.getPreviousHash());
-        printf("\nIs Block Valid?: %d", currentBlock.isHashValid());
+        cout << "\n\nBlock ===================================";
+        cout << "\nIndex: " << currentBlock.getIndex();
+        cout << "\nAmount: " << currentBlock.data.amount;
+        cout << "\nSenderKey: " << currentBlock.data.senderKey.c_str();
+        cout << "\nReceiverKey: " << currentBlock.data.receiverKey.c_str();
+        cout << "\nTimestamp: " << currentBlock.data.timestamp;
+        cout << "\nHash: " << currentBlock.getHash();
+        cout << "\nPrevious Hash: " << currentBlock.getPreviousHash();
+        cout << "\nIs Block Valid?: " << currentBlock.isHashValid();
     }
+}
+
+void Blockchain::shop(){
+    
 }
 
 #endif
