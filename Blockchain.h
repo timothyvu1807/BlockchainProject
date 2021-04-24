@@ -5,6 +5,7 @@
 #include <vector>
 #include <ctime>
 #include <string>
+#include "game.h"
 
 using namespace std;
 
@@ -182,8 +183,32 @@ void Blockchain::printChain() {
     }
 }
 
-void Blockchain::shop(){
-    
-}
+// void Blockchain::shop(){
+//     int choice =0;
+//     game game;
+//     cout << "Welcome to the shop! Enter which item number you want to purchase." << endl;
+//     cout << "Item 1: 100 points" << endl;
+//     cout << "Item 2: 500 points" << endl;
+//     cout << "Item 3: 1000 points" << endl; 
+//     cout << "press X to exit the shop or P to go back to the play menu" << endl;
+//     cin >> choice;
+//     if(choice <0 || choice >3){
+//         cout << "Invalid entry" << endl;
+//     }
+//     else
+//     {
+//         switch(choice){
+//             case '1':
+//             case '2':
+//             case '3':
+//             case 'x': break;
+//             case 'X': break;
+//             case 'p': game.run1();
+//             case 'P': game.run1();
+
+//         }
+
+//     }
+// }
 
 #endif
