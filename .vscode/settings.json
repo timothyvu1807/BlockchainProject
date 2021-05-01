@@ -2,6 +2,10 @@
     "files.associations": {
         "ostream": "cpp",
         "iostream": "cpp",
+<<<<<<< HEAD
         "thread": "cpp"
+=======
+        "chrono": "cpp"
+>>>>>>> 2b9ae3907cd4e225e1827c65ca2ad1ef07beeaa7
     }
 }
