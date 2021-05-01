@@ -3,13 +3,13 @@
 #include <time.h>
 #include "Blockchain.h"
 #include "game.h"
+#include "game.cpp"
 using namespace std;
 
 int main()
 {
-    // // Start Blockchain
+    // // // Start Blockchain
     // Blockchain awesomeCoin;
-    
     // // Data for first block
     // time_t data1Time;
     // TransactionData data1(1.5, "Joe", "Sally", time(&data1Time));

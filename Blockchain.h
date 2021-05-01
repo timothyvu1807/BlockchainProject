@@ -179,7 +179,6 @@ void Blockchain::printChain() {
         cout << "\nTimestamp: " << currentBlock.data.timestamp;
         cout << "\nHash: " << currentBlock.getHash();
         cout << "\nPrevious Hash: " << currentBlock.getPreviousHash();
-        cout << "\nIs Block Valid?: " << currentBlock.isHashValid();
     }
 }
 
