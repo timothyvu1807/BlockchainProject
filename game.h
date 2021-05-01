@@ -5,16 +5,19 @@
 #include <stdlib.h>
 #include <chrono>
 #include <math.h>
+#include "Blockchain.h"
 
 using namespace std;
 
 class game{
+
     public:
     game();
     void run1();
     void Addition(int bet);
     void Multiplication();
     int getTotal();
+    void shop();
 
     private:
     int total;
@@ -107,8 +110,6 @@ void game::run1()
      switch(choice){
                     case 'X':
                     case 'x':break;
-                    case 'S':
-                    case 's':
                     // enter shop
                             
                     case 'A':
@@ -117,10 +118,41 @@ void game::run1()
                             cout << "The bet was:" << bet<< " and i have " << getTotal();
                     case 'M':
                     case 'm':
-                            cout << "hey" << endl;
+                            // cout << "hey" << endl;
+                    case 'S': shop();
+                    case 's': shop();
                     default: cout<<"Invalid entry. ";
                     }
      }while((choice != 'x') && (choice != 'X'));
+}
+
+void game::shop(){
+    int choice =0;
+    game game;
+    cout << endl;
+    cout << "Welcome to the shop! Enter which item number you want to purchase." << endl;
+    cout << endl;
+    cout << "Item 1: 100 points" << endl;
+    cout << "Item 2: 500 points" << endl;
+    cout << "Item 3: 1000 points" << endl; 
+    cin >> choice;
+    if(choice <0 || choice >3){
+        cout << "Invalid entry" << endl;
+    }
+    else
+    {   cout << endl;
+        switch(choice){
+            case '1':
+            case '2':
+            case '3':
+            case 'x': break;
+            case 'X': break;
+            case 'p': run1();
+            case 'P': run1();
+            cout << "press X to exit the shop or P to go back to the play menu" << endl;
+        }
+
+    }
 }
 
 #endif
