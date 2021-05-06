@@ -10,14 +10,15 @@
 using namespace std;
 
 // Transaction
-struct TransactionData{
+struct TransactionData
+{
     double amount;
     string senderKey;
     string receiverKey;
     time_t timestamp;
-    
+
     TransactionData(){};
-    
+
     TransactionData(double amt, string sender, string receiver, time_t time)
     {
         amount = amt;
@@ -28,13 +29,14 @@ struct TransactionData{
 };
 
 // Block
-class Block{
+class Block
+{
 private:
     int index;
     size_t blockHash;
     size_t previousHash;
     size_t generateHash();
-    
+
 public:
     Block(int idx, TransactionData d, size_t prevHash);
     int getIndex();
@@ -81,7 +83,8 @@ bool Block::isHashValid()
 }
 
 // Blockchain
-class Blockchain{
+class Blockchain
+{
 private:
     void shop();
     Block createGenesisBlock();
@@ -90,7 +93,7 @@ private:
 public:
     // Constuctor
     Blockchain();
-    
+
     // Public Functions
     vector<Block> getChain();
     Block *getLatestBlock();
@@ -106,7 +109,8 @@ Blockchain::Blockchain()
 }
 
 // Public Chain Getter
-vector<Block> Blockchain::getChain() {
+vector<Block> Blockchain::getChain()
+{
     return chain;
 }
 
@@ -115,10 +119,10 @@ Block Blockchain::createGenesisBlock()
 {
     // Get Current Time
     time_t current;
-    
+
     // Setup Initial Transaction Data
     TransactionData d(0, "Genesis", "Genesis", time(&current));
-    
+
     // Return Genesis Block
     Block genesis(0, d, 0);
     return genesis;
@@ -142,7 +146,7 @@ void Blockchain::addBlock(TransactionData d)
 bool Blockchain::isChainValid()
 {
     vector<Block>::iterator it;
-    
+
     for (it = chain.begin(); it != chain.end(); ++it)
     {
         Block currentBlock = *it;
@@ -150,7 +154,7 @@ bool Blockchain::isChainValid()
         {
             return false;
         }
-        
+
         // Don't forget to check if this is the first item
         if (it != chain.begin())
         {
@@ -161,18 +165,19 @@ bool Blockchain::isChainValid()
             }
         }
     }
-    
+
     return true;
 }
 
-void Blockchain::printChain() {
+void Blockchain::printChain()
+{
     vector<Block>::iterator it;
-    
+
     for (it = chain.begin(); it != chain.end(); ++it)
     {
         Block currentBlock = *it;
         cout << "\n\nBlock ===================================";
-        cout << "\nIndex: " << currentBlock.getIndex();
+        // cout << "\nIndex: " << currentBlock.getIndex();
         cout << "\nAmount: " << currentBlock.data.amount;
         cout << "\nSenderKey: " << currentBlock.data.senderKey.c_str();
         cout << "\nReceiverKey: " << currentBlock.data.receiverKey.c_str();
@@ -188,7 +193,7 @@ void Blockchain::printChain() {
 //     cout << "Welcome to the shop! Enter which item number you want to purchase." << endl;
 //     cout << "Item 1: 100 points" << endl;
 //     cout << "Item 2: 500 points" << endl;
-//     cout << "Item 3: 1000 points" << endl; 
+//     cout << "Item 3: 1000 points" << endl;
 //     cout << "press X to exit the shop or P to go back to the play menu" << endl;
 //     cin >> choice;
 //     if(choice <0 || choice >3){
