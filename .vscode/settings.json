@@ -2,6 +2,7 @@
     "files.associations": {
         "ostream": "cpp",
         "iostream": "cpp",
+<<<<<<< HEAD
         "chrono": "cpp",
         "array": "cpp",
         "atomic": "cpp",
@@ -49,5 +50,12 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp"
+=======
+<<<<<<< HEAD
+        "thread": "cpp"
+=======
+        "chrono": "cpp"
+>>>>>>> 2b9ae3907cd4e225e1827c65ca2ad1ef07beeaa7
+>>>>>>> e2afda25902d192afc3c1abccce8e6b9dfb61f6a
     }
 }
