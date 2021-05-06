@@ -4,6 +4,7 @@
 #include <math.h>
 #include <time.h>
 #include "Blockchain.h"
+#include "Blockchain.cpp"
 #include "game.h"
 
 using namespace std;
@@ -91,7 +92,7 @@ void game::run1()
     cout << "You have this much money: " << total << endl;
     cout << "How much do you want to bet in this game?" << endl;
     cin >> bet;
-    cout << "Enter 's' to enter the Shop, 'A' to play addition, 'M' to play multiplication, or 'x' to exit:  ";
+    cout << "Enter 'S' to enter the Shop, 'A' to play addition, 'M' to play multiplication, or 'X' to exit:  ";
      do{
      cin>>choice;
      switch(choice){
