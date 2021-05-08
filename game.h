@@ -7,16 +7,18 @@
 #include <math.h>
 
 using namespace std;
-class game{
-    public:
+class game
+{
+public:
     game();
     void run1();
     void Addition(int bet);
     void Multiplication(int bet);
+    void MixOfTheTwo(int bet);
     int getTotal();
     void shop();
 
-    private:
+private:
     int total;
 };
 

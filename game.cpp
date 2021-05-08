@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <chrono>
 #include <math.h>
 #include <time.h>
@@ -28,12 +28,12 @@ void game::Addition(int bet)
         cin >> userAnswer;
         if (userAnswer == sum)
         {
-            cout << "Grats" << endl;
+            cout << "Congrats!" << endl;
             total = total + bet;
         }
         else
         {
-            cout << "Feelsbad" << endl;
+            cout << "Unlucky." << endl;
             total = total - bet;
         }
     }
@@ -42,7 +42,7 @@ void game::Addition(int bet)
     cout << "Time took to run: " << difference.count() << endl; //need point multiplier based on how fast
     if (total < 0)
     {
-        cout << "bruh you get no money" << endl;
+        cout << "Sorry, you have no money." << endl;
     }
     else
     {
@@ -52,16 +52,14 @@ void game::Addition(int bet)
 
 void game::Multiplication(int bet)
 {
-    // int rightCounter = 0, wrongCounter = 0;
     auto start = chrono::steady_clock::now();
-
+    bet = bet * 2;
     srand(time(0));
     for (int i = 0; i < 5; i++)
     {
         int num1 = rand() % 12, num2 = rand() % 12;
         int product = num1 * num2;
         int userAnswer = 0;
-        bet = bet * 2;
         cout << "What is the multiplication of " << num1 << " and " << num2 << endl;
         cin >> userAnswer;
 
@@ -72,7 +70,7 @@ void game::Multiplication(int bet)
         }
         else
         {
-            cout << "Feelsbad" << endl;
+            cout << "Unlucky." << endl;
             total = total - bet;
         }
     }
@@ -81,7 +79,73 @@ void game::Multiplication(int bet)
     cout << "Time took to run: " << difference.count() << endl; //need point multiplier based on how fast
     if (total < 0)
     {
-        cout << "Bruh you get no money" << endl;
+        cout << "Sorry, you have no money." << endl;
+    }
+    else
+    {
+        cout << "Your total score is " << total << endl;
+    }
+}
+
+void game::MixOfTheTwo(int bet)
+{
+    auto start = chrono::steady_clock::now();
+    srand(time(0));
+
+    bet = bet * 3;
+    for (int i = 0; i < 5; i++)
+    {
+        int randomNum1 = rand() % 100;
+        // cout << "Test Number: " << randomNum1 << endl;
+        if (randomNum1 % 2 == 0)
+        {
+            //Addition
+            int num1 = rand() % 100, num2 = rand() % 100;
+            int sum = num1 + num2;
+            int userAnswer;
+            cout << "What is the sum of " << num1 << " and " << num2 << endl;
+            cin >> userAnswer;
+
+            if (userAnswer == sum)
+            {
+                cout << "Congrats!" << endl;
+                total = total + bet;
+            }
+            else
+            {
+                cout << "Unlucky." << endl;
+                total = total - bet;
+            }
+        }
+        else
+        {
+            //Multiplication
+            int num1 = rand() % 12, num2 = rand() % 12;
+            int product = num1 * num2;
+            int userAnswer = 0;
+            //bet = bet * 2;
+            cout << "What is the multiplication of " << num1 << " and " << num2 << endl;
+            cin >> userAnswer;
+
+            if (userAnswer == product)
+            {
+                cout << "Good Job!" << endl;
+                total = total + bet;
+            }
+            else
+            {
+                cout << "Unlucky." << endl;
+                total = total - bet;
+            }
+        }
+    }
+
+    auto stop = chrono::steady_clock::now();
+    std::chrono::duration<double> difference = stop - start;
+    cout << "Time took to run: " << difference.count() << endl; //need point multiplier based on how fast
+    if (total < 0)
+    {
+        cout << "Sorry, you have no money." << endl;
     }
     else
     {
@@ -101,7 +165,7 @@ void game::run1()
     cout << "You have this much money: " << total << endl;
     cout << "How much do you want to bet in this game?" << endl;
     cin >> bet;
-    cout << "Enter 's' to enter the Shop, 'A' to play addition, 'M' to play multiplication, or 'x' to exit:  ";
+    cout << "Enter 'S' to enter the Shop, 'A' to play addition, 'M' to play multiplication, 'B' to play Mix of + and *, or 'X' to exit:  ";
     do
     {
         cin >> choice;
@@ -112,17 +176,23 @@ void game::run1()
             break;
         case 'a':
             Addition(bet);
-            cout << "The bet was:" << bet << " and i have " << getTotal();
+            cout << "The bet was: " << bet << " and I have " << getTotal();
+            //break;
         case 'm':
             Multiplication(bet);
+            //break;
+        case 'b':
+            MixOfTheTwo(bet);
+            //break;
         case 'S':
             shop();
         case 's':
             shop();
         default:
             cout << "Invalid entry. ";
+            //break;
         }
-    } while ((choice != 'x') && (choice != 'X'));
+    } while ((choice != 'x') || (choice != 'X'));
 }
 
 void game::shop()
