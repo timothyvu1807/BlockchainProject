@@ -21,12 +21,13 @@ int Block::getIndex()
     return index;
 }
 
+// before the function and variables were size_t but i changed it to string to try to implement sha256
 string Block::generateHash()
 {
-//     string toHashS = to_string(data.amount) + data.receiverKey + data.senderKey + to_string(data.timestamp);
+    // string toHashS = to_string(data.amount) + data.receiverKey + data.senderKey + to_string(data.timestamp);
     hash<string> tDataHash;
     hash<string> prevHash;
-//     return tDataHash(toHashS) ^ (prevHash(to_string(previousHash)) << 1);
+    // return tDataHash(toHashS) ^ (prevHash(to_string(previousHash)) << 1);
     string input = to_string(data.amount) + data.receiverKey + data.senderKey + to_string(data.timestamp);
     string output1 = sha256(input);
     cout << "sha256('"<< input << "'):" << output1 << endl;
