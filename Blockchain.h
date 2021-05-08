@@ -12,13 +12,12 @@ using namespace std;
 struct TransactionData
 {
     double amount;
-    string senderKey;
-    string receiverKey;
+    std::string senderKey;
+    std::string receiverKey;
     time_t timestamp;
-
+    
     TransactionData(){};
-
-    TransactionData(double amt, string sender, string receiver, time_t time)
+    TransactionData(int amt, std::string sender, std::string receiver, time_t time)
     {
         amount = amt;
         senderKey = sender;
@@ -32,17 +31,35 @@ class Block
 {
 private:
     int index;
-    string blockHash;
-    string previousHash;
-    string generateHash();
-
+    size_t blockHash;
+    size_t previousHash;
+    size_t generateHash();
+    
 public:
-    Block(int idx, TransactionData d, string prevHash);
+    Block(int idx, TransactionData d, size_t prevHash);
     int getIndex();
-    string getHash();
-    string getPreviousHash();
+    size_t getHash();
+    size_t getPreviousHash();
     TransactionData data;
     bool isHashValid();
+};
+
+class Blockchain
+{
+private:
+    Block createGenesisBlock();
+    std::vector<Block> chain;
+
+public:
+    // Constuctor
+    Blockchain();
+    
+    // Public Functions
+    vector<Block> getChain();
+    Block *getLatestBlock();
+    bool isChainValid();
+    void addBlock(TransactionData data);
+    void printChain();
 };
 
 #endif

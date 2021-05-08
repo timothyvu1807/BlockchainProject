@@ -100,7 +100,7 @@ void game::MixOfTheTwo(int bet)
         if (randomNum1 % 2 == 0)
         {
             //Addition
-            int num1 = rand() % 100, num2 = rand() % 100;
+            int num1 = rand() % 50, num2 = rand() % 50;
             int sum = num1 + num2;
             int userAnswer;
             cout << "What is the sum of " << num1 << " and " << num2 << endl;
@@ -165,32 +165,26 @@ void game::run1()
     cout << "You have this much money: " << total << endl;
     cout << "How much do you want to bet in this game?" << endl;
     cin >> bet;
-    cout << "Enter 'S' to enter the Shop, 'A' to play addition, 'M' to play multiplication, 'B' to play Mix of + and *, or 'X' to exit:  ";
+    //cout << "Enter 'S' to enter the Shop, 'A' to play addition, 'M' to play multiplication, 'B' to play Mix of + and *, or 'X' to exit:  ";
     do
     {
+        cout << "Enter 'S' to enter the Shop, 'A' to play addition, 'M' to play multiplication, 'B' to play Mix of + and *, or 'X' to exit:  ";
         cin >> choice;
-        switch (choice)
+        if(choice == 'x' || choice == 'X')
         {
-        case 'X':
-        case 'x':
             break;
-        case 'a':
+        }else if(choice == 'a' || choice == 'A')
+        {
             Addition(bet);
-            cout << "The bet was: " << bet << " and I have " << getTotal();
-            //break;
-        case 'm':
+        }else if(choice == 'm' || choice == 'M')
+        {
             Multiplication(bet);
-            //break;
-        case 'b':
+        }else if(choice == 'b' || choice == 'B')
+        {
             MixOfTheTwo(bet);
-            //break;
-        case 'S':
+        }else if(choice == 'S' || choice == 's')
+        {   
             shop();
-        case 's':
-            shop();
-        default:
-            cout << "Invalid entry. ";
-            //break;
         }
     } while ((choice != 'x') || (choice != 'X'));
 }
@@ -198,23 +192,24 @@ void game::run1()
 void game::shop()
 {
     int choice = 0;
+    int counter =0;
+    Blockchain coin;
+    game game;
     do
     {
-        Blockchain coin;
-        time_t data1Time;
-        game game;
         cout << endl;
-        cout << "Welcome to the shop! Enter which item number you want to purchase. Press 4 to exit game." << endl;
+        cout << "Welcome to the shop! Enter which item number you want to purchase. Press x to exit game." << endl;
+        cout << "Your total is " << total << endl;
         cout << endl;
         cout << "Item 1: 10 points" << endl;
         cout << "Item 2: 50 points" << endl;
         cout << "Item 3: 100 points" << endl;
         cin >> choice;
-        if (choice < 0 || choice > 3)
+        if (choice < 0 || choice > 3 )
         {
             cout << "Invalid entry" << endl;
         }
-        else if (choice == 1)
+       else if (choice == 1)
         {
             total = total - 10;
             if (total < 0)
@@ -222,7 +217,8 @@ void game::shop()
                 cout << "insufficient funds" << endl;
             }
             else
-            {
+            {  
+                time_t data1Time;
                 TransactionData data1(10, "player", "Shop", time(&data1Time));
                 coin.addBlock(data1);
                 coin.printChain();
@@ -236,8 +232,9 @@ void game::shop()
                 cout << "insufficient funds" << endl;
             }
             else
-            {
-                TransactionData data2(50, "player", "Shop", time(&data1Time));
+            {   
+                time_t data2Time;
+                TransactionData data2(50, "player", "Shop", time(&data2Time));
                 coin.addBlock(data2);
                 coin.printChain();
             }
@@ -247,19 +244,21 @@ void game::shop()
             total = total - 100;
             if (total < 0)
             {
-                cout << "insufficient funds" << endl;
+                cout << "Insufficient funds" << endl;
             }
             else
-            {
-                TransactionData data3(100, "player", "Shop", time(&data1Time));
+            {   
+                time_t data3Time;
+                TransactionData data3(100, "player", "Shop", time(&data3Time));
                 coin.addBlock(data3);
                 coin.printChain();
             }
         }
         else
         {
+            char choice1;
             cout << "Enter x to exit the game or p to play the game again" << endl;
-            switch (choice)
+            switch (choice1)
             {
             case 'x':
                 break;
@@ -272,5 +271,6 @@ void game::shop()
                 cout << "press X to exit the shop or P to go back to the play menu" << endl;
             }
         }
-    } while (choice == 4);
+    } while (choice < 4);
+
 }

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include <ctime>
 #include <string>
@@ -8,38 +7,35 @@
 
 using namespace std;
 
-Block::Block(int idx, TransactionData d, string prevHash)
+Block::Block(int idx, TransactionData d, size_t previousHash1)
 {
     index = idx;
     data = d;
-    previousHash = prevHash;
+    previousHash = previousHash1;
     blockHash = generateHash();
 }
 
+// private functions
 int Block::getIndex()
 {
     return index;
 }
 
-// before the function and variables were size_t but i changed it to string to try to implement sha256
-string Block::generateHash()
+size_t Block::generateHash()
 {
-    // string toHashS = to_string(data.amount) + data.receiverKey + data.senderKey + to_string(data.timestamp);
-    hash<string> tDataHash;
-    hash<string> prevHash;
-    // return tDataHash(toHashS) ^ (prevHash(to_string(previousHash)) << 1);
-    string input = to_string(data.amount) + data.receiverKey + data.senderKey + to_string(data.timestamp);
-    string output1 = sha256(input);
-    cout << "sha256('"<< input << "'):" << output1 << endl;
-    return output1;
+    std::string toHashS = std::to_string(data.amount) + data.receiverKey + data.senderKey + std::to_string(data.timestamp);
+    std::hash<std::string> tDataHash; // hashes transaction data string
+    std::hash<std::string> prevHash; // re-hashes previous hash (for combination)
+    return tDataHash(toHashS) ^ (prevHash(std::to_string(previousHash)) << 1);
 }
 
-string Block::getHash()
+// Public Functions
+size_t Block::getHash()
 {
     return blockHash;
 }
 
-string Block::getPreviousHash()
+size_t Block::getPreviousHash()
 {
     return previousHash;
 }
@@ -49,26 +45,6 @@ bool Block::isHashValid()
     return generateHash() == getHash();
 }
 
-// Blockchain
-class Blockchain
-{
-private:
-    void shop();
-    Block createGenesisBlock();
-    vector<Block> chain;
-
-public:
-    // Constuctor
-    Blockchain();
-
-    // Public Functions
-    vector<Block> getChain();
-    Block *getLatestBlock();
-    bool isChainValid();
-    void addBlock(TransactionData data);
-    void printChain();
-};
-
 Blockchain::Blockchain()
 {
     Block genesis = createGenesisBlock();
@@ -76,8 +52,7 @@ Blockchain::Blockchain()
 }
 
 // Public Chain Getter
-vector<Block> Blockchain::getChain()
-{
+vector<Block> Blockchain::getChain() {
     return chain;
 }
 
@@ -85,11 +60,11 @@ vector<Block> Blockchain::getChain()
 Block Blockchain::createGenesisBlock()
 {
     // Get Current Time
-    time_t current;
-
+    std::time_t current;
+    
     // Setup Initial Transaction Data
     TransactionData d(0, "Genesis", "Genesis", time(&current));
-
+    
     // Return Genesis Block
     Block genesis(0, d, 0);
     return genesis;
@@ -105,15 +80,15 @@ Block *Blockchain::getLatestBlock()
 void Blockchain::addBlock(TransactionData d)
 {
     int index = (int)chain.size();
-    string previousHash = (int)chain.size() > 0 ? getLatestBlock()->getHash() : 0;
+    std::size_t previousHash = (int)chain.size() > 0 ? getLatestBlock()->getHash() : 0;
     Block newBlock(index, d, previousHash);
     chain.push_back(newBlock);
 }
 
 bool Blockchain::isChainValid()
 {
-    vector<Block>::iterator it;
-
+    std::vector<Block>::iterator it;
+    
     for (it = chain.begin(); it != chain.end(); ++it)
     {
         Block currentBlock = *it;
@@ -121,7 +96,7 @@ bool Blockchain::isChainValid()
         {
             return false;
         }
-
+        
         // Don't forget to check if this is the first item
         if (it != chain.begin())
         {
@@ -132,25 +107,27 @@ bool Blockchain::isChainValid()
             }
         }
     }
-
+    
     return true;
 }
 
-void Blockchain::printChain()
-{
-    vector<Block>::iterator it;
+void Blockchain::printChain() {
+    std::vector<Block>::iterator it;
 
     for (it = chain.begin(); it != chain.end(); ++it)
     {
         Block currentBlock = *it;
-        cout << "\n\nBlock ===================================";
-        // cout << "\nIndex: " << currentBlock.getIndex();
-        cout << "\nAmount: " << currentBlock.data.amount;
-        cout << "\nSenderKey: " << currentBlock.data.senderKey.c_str();
-        cout << "\nReceiverKey: " << currentBlock.data.receiverKey.c_str();
-        cout << "\nTimestamp: " << currentBlock.data.timestamp;
-        cout << "\nHash: " << currentBlock.getHash();
-        cout << "\nPrevious Hash: " << currentBlock.getPreviousHash();
+        string temp = sha256(to_string(currentBlock.getHash()));
+        string temp1 = sha256(to_string(currentBlock.getPreviousHash()));
+        
+        printf("\n\nBlock ===================================");
+        printf("\nAmount: %f", currentBlock.data.amount);
+        printf("\nSenderKey: %s", currentBlock.data.senderKey.c_str());
+        printf("\nReceiverKey: %s", currentBlock.data.receiverKey.c_str());
+        printf("\nTimestamp: %ld", currentBlock.data.timestamp);
+        cout << endl;
+        cout << "Hash: " << temp << endl;
+        cout << "Previous Hash: " << temp1 << endl;
+        printf("\nIs Block Valid?: %d", currentBlock.isHashValid());
     }
 }
-
