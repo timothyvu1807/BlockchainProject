@@ -23,10 +23,10 @@ int Block::getIndex()
 
 size_t Block::generateHash()
 {
-    std::string toHashS = std::to_string(data.amount) + data.receiverKey + data.senderKey + std::to_string(data.timestamp);
-    std::hash<std::string> tDataHash; // hashes transaction data string
-    std::hash<std::string> prevHash; // re-hashes previous hash (for combination)
-    return tDataHash(toHashS) ^ (prevHash(std::to_string(previousHash)) << 1);
+    string toHashS = to_string(data.amount) + data.receiverKey + data.senderKey + to_string(data.timestamp);
+    hash<string> tDataHash; // hashes transaction data string
+    hash<string> prevHash; // re-hashes previous hash (for combination)
+    return tDataHash(toHashS) ^ (prevHash(to_string(previousHash)) << 1);
 }
 
 // Public Functions
@@ -60,7 +60,7 @@ vector<Block> Blockchain::getChain() {
 Block Blockchain::createGenesisBlock()
 {
     // Get Current Time
-    std::time_t current;
+    time_t current;
     
     // Setup Initial Transaction Data
     TransactionData d(0, "Genesis", "Genesis", time(&current));
@@ -80,14 +80,14 @@ Block *Blockchain::getLatestBlock()
 void Blockchain::addBlock(TransactionData d)
 {
     int index = (int)chain.size();
-    std::size_t previousHash = (int)chain.size() > 0 ? getLatestBlock()->getHash() : 0;
+    size_t previousHash = (int)chain.size() > 0 ? getLatestBlock()->getHash() : 0;
     Block newBlock(index, d, previousHash);
     chain.push_back(newBlock);
 }
 
 bool Blockchain::isChainValid()
 {
-    std::vector<Block>::iterator it;
+    vector<Block>::iterator it;
     
     for (it = chain.begin(); it != chain.end(); ++it)
     {
@@ -112,7 +112,7 @@ bool Blockchain::isChainValid()
 }
 
 void Blockchain::printChain() {
-    std::vector<Block>::iterator it;
+    vector<Block>::iterator it;
 
     for (it = chain.begin(); it != chain.end(); ++it)
     {
@@ -121,6 +121,7 @@ void Blockchain::printChain() {
         string temp1 = sha256(to_string(currentBlock.getPreviousHash()));
         
         printf("\n\nBlock ===================================");
+        printf("\nIndex: %d", currentBlock.getIndex());
         printf("\nAmount: %f", currentBlock.data.amount);
         printf("\nSenderKey: %s", currentBlock.data.senderKey.c_str());
         printf("\nReceiverKey: %s", currentBlock.data.receiverKey.c_str());

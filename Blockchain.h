@@ -12,12 +12,12 @@ using namespace std;
 struct TransactionData
 {
     double amount;
-    std::string senderKey;
-    std::string receiverKey;
+    string senderKey;
+    string receiverKey;
     time_t timestamp;
     
     TransactionData(){};
-    TransactionData(int amt, std::string sender, std::string receiver, time_t time)
+    TransactionData(int amt, string sender, string receiver, time_t time)
     {
         amount = amt;
         senderKey = sender;
@@ -48,7 +48,7 @@ class Blockchain
 {
 private:
     Block createGenesisBlock();
-    std::vector<Block> chain;
+    vector<Block> chain;
 
 public:
     // Constuctor
