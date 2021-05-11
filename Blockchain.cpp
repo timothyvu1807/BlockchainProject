@@ -119,16 +119,15 @@ void Blockchain::printChain() {
         Block currentBlock = *it;
         string temp = sha256(to_string(currentBlock.getHash()));
         string temp1 = sha256(to_string(currentBlock.getPreviousHash()));
-        
-        printf("\n\nBlock ===================================");
-        printf("\nIndex: %d", currentBlock.getIndex());
-        printf("\nAmount: %f", currentBlock.data.amount);
-        printf("\nSenderKey: %s", currentBlock.data.senderKey.c_str());
-        printf("\nReceiverKey: %s", currentBlock.data.receiverKey.c_str());
-        printf("\nTimestamp: %ld", currentBlock.data.timestamp);
-        cout << endl;
+
+        cout << endl << endl << "Block ==================================="<< endl;
+        cout << "Index: " << currentBlock.getIndex() << endl;
+        cout << "Amount: " << currentBlock.data.amount << endl;
+        cout << "SenderKey: " << currentBlock.data.senderKey.c_str() << endl;
+        cout << "ReceiverKey: " << currentBlock.data.receiverKey.c_str() << endl;
+        cout << "Timestamp: " << currentBlock.data.timestamp << endl;
         cout << "Hash: " << temp << endl;
         cout << "Previous Hash: " << temp1 << endl;
-        printf("\nIs Block Valid?: %d", currentBlock.isHashValid());
+        cout << "Is Block Valid?: " << currentBlock.isHashValid() << endl;
     }
 }
