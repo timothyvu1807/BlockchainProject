@@ -9,3 +9,6 @@ Addition questions will be worth the least, Subtraction will be worth more, and 
 Round Robin Mode: Consist of all 3 and will give you an even greater point multiplier.
 Points can be spent in a shop.
 **RULES**
+
+For references, please look at the reference slides in this powerpoint presentation
+https://docs.google.com/presentation/d/1bt0AzZx7zTo1D5B48IgoHaKHZ5SV6lWyN0ffdFgFXpY/edit?usp=sharing
